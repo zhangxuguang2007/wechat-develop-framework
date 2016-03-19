@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd ">
+    
+    <!-- Common param -->
+	<context-param>
+		<param-name>imageServer</param-name>
+		<param-value>http://101.200.156.31/wechat-seed-app/image/</param-value>  
+	</context-param>
+	<listener>
+		<listener-class>com.xgzhang.wechat.listener.WechatListener</listener-class> 
+	</listener>
+	
+	<!-- Avoid log4J conflict-->
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>webapp.wechat-seed</param-value>  
+	</context-param>
+	
+	<!-- Log4j -->
+	<context-param>  
+	    <param-name>log4jConfigLocation</param-name>  
+	    <param-value>/WEB-INF/classes/log4j.properties</param-value>  
+	</context-param>  
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>3000</param-value>
+	</context-param>   
+	<listener>  
+    	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class> 
+    </listener>
+	
+	<!-- Spring filter for encoding -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>   
+	
+	<!-- Spring dispatcher -->
+	<servlet>
+		<servlet-name>wechat</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+		<multipart-config>
+		    <max-file-size>20848820</max-file-size>
+		    <max-request-size>418018841</max-request-size>
+		    <file-size-threshold>1048576</file-size-threshold>
+		</multipart-config>   
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>wechat</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Other spring config -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+        <param-value>
+        	/WEB-INF/service.xml
+        </param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+</web-app>

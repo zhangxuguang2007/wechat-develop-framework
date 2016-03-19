@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:log4j='http://jakarta.apache.org/log4j/' >
+  
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+		 	<param name="ConversionPattern"  value="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} method:%l%n%m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="debug" />
+			<param name="levelMax" value="error" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+	
+	<appender name="fileDebug" class="org.apache.log4j.DailyRollingFileAppender">  
+		<param name="File" value="/logs/wechat/debug.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ]  %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="debug" />
+			<param name="levelMax" value="error" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+
+	<appender name="fileInfo" class="org.apache.log4j.DailyRollingFileAppender">  
+		<param name="File" value="/logs/wechat/info.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ]  %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="info" />
+			<param name="levelMax" value="info" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+	
+	<appender name="fileError" class="org.apache.log4j.DailyRollingFileAppender">  
+		<param name="File" value="/logs/wechat/error.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [ %t:%r ] - [ %p ]  %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="error" />
+			<param name="levelMax" value="error" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+	</appender>
+ 
+	<root>
+		<priority value ="info"/>
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="fileDebug"/>	
+		<appender-ref ref="fileInfo"/>	
+		<appender-ref ref="fileError"/>	
+	</root>
+</configuration>
